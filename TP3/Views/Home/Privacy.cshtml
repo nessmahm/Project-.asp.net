@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Cherche personne par ID";
+    var personne = @ViewBag.personne;
+}
+<h1>@ViewData["Title"]</h1>
+
+
+<div class="carte">
+    <img src=@personne.Image alt="...">
+    <div class="carte-text">
+        <p>
+            <h3>First name: </h3> @personne.First_name <br></br>
+            <h3>Last name : </h3> @personne.Last_name <br></br>
+            <h3>Email : </h3> @personne.Email <br></br>
+            <h3>Country : </h3> @personne.Country <br></br>
+        </p>
+    </div>
+</div>
