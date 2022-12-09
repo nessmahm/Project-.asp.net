@@ -8,12 +8,13 @@ using System.Diagnostics.Metrics;
 
 namespace TP3.Controllers
 {
-    public class HomeController : Controller
-    {
-        private readonly ILogger<HomeController> _logger;
+
+    public class PersonneController : Controller
+    { 
+        private readonly ILogger<PersonneController> _logger;
         Personal_Info personal_Info = new Personal_Info();
 
-        public HomeController(ILogger<HomeController> logger)
+        public PersonneController(ILogger<PersonneController> logger)
         {
             _logger = logger;
         }
@@ -23,14 +24,31 @@ namespace TP3.Controllers
 
             ViewBag.personnes = personal_Info.GetAllPerson();
 
+
             return View();
         }
-        [HttpGet("/personne/{id}")]
-        public IActionResult Privacy(int id )
+
+        [HttpGet("/personne/personne/{id}")]
+        public IActionResult Privacy(int id)
         {
             ViewBag.personne = personal_Info.GetPerson(id);
 
             return View();
+        }
+
+
+        [HttpGet("/personne/search")]
+        public IActionResult Search()
+        {
+
+            return View();
+        }
+
+        [HttpPost("/personne/search")]
+        public IActionResult Search(String Firstname, String Country)
+        {
+
+            return RedirectToAction ( "personne","personne", new { id = personal_Info.SearchPerson(Firstname, Country) });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

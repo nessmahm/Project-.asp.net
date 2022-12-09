@@ -26,8 +26,7 @@ namespace TP3.Models
     public Personne GetPerson(int id)
         {
             Personne p=null;
-            using (connection)
-            {
+
                 var command = connection.CreateCommand();
                 command.CommandText = @"SELECT * from  personal_info  WHERE id=$id";
                 command.Parameters.AddWithValue("$id", id);
@@ -40,15 +39,13 @@ namespace TP3.Models
                     Debug.WriteLine(p);
                 }
 
-            }
+            
             return p;
         }
 
         public List<Personne> GetAllPerson()
         {
             
-            using (connection)
-            {
 
                 var command = connection.CreateCommand();
                 command.CommandText = @"SELECT * from  personal_info";
@@ -72,10 +69,24 @@ namespace TP3.Models
                     }
                 }
                 return Pers_info;
-            }
+            
 
            
 
-        } }
+        } 
+        public int SearchPerson(String firstName , String country )
+        {
+            var commande = connection.CreateCommand();
+            commande.CommandText = @"SELECT id from personal_info where first_name=$firstName AND country=$country";
+            commande.Parameters.AddWithValue("$firstName", firstName);
+            commande.Parameters.AddWithValue("$country", country);
+
+            return (int) commande.ExecuteScalar(); 
+
+        }
+    
+    
+    
+    }
     
 }
