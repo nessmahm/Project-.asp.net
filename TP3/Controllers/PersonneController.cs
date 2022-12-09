@@ -28,7 +28,7 @@ namespace TP3.Controllers
             return View();
         }
 
-        [HttpGet("/personne/personne/{id}")]
+        [HttpGet("/personne/{id}")]
         public IActionResult Privacy(int id)
         {
             ViewBag.personne = personal_Info.GetPerson(id);
@@ -47,8 +47,8 @@ namespace TP3.Controllers
         [HttpPost("/personne/search")]
         public IActionResult Search(String Firstname, String Country)
         {
-
-            return RedirectToAction ( "personne","personne", new { id = personal_Info.SearchPerson(Firstname, Country) });
+            int id = personal_Info.SearchPerson(Firstname, Country);
+            return Redirect ( $"/personne/{id}");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
